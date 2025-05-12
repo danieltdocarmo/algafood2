@@ -1,15 +1,7 @@
 {
-  "name": "Java 17 with Docker",
-  "build": {
-    "dockerfile": "Dockerfile"
-  },
-  "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash"
-  },
+  "name": "Padrao",
   "extensions": [
     "vscjava.vscode-java-pack",
     "ms-azuretools.vscode-docker"
-  ],
-  "postCreateCommand": "java -version && docker --version",
-  "remoteUser": "vscode"
+  ]
 }
