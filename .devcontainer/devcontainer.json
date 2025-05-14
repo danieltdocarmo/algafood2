@@ -4,10 +4,5 @@
     "vscjava.vscode-java-pack",
     "ms-azuretools.vscode-docker",
     "cweijan.vscode-database-client2"
-  ],
-  "dockerComposeFile": [
-      "docker-compose.yml"
-  ],
-  "service": "db",
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
+  ]
 }
