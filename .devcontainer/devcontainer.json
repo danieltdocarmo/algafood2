@@ -1,8 +1,9 @@
 {
    "name": "Algafood Dev Container",
    "extensions": [
-    "vscjava.vscode-java-pack",
-    "ms-azuretools.vscode-docker",
-    "cweijan.vscode-database-client2"
-  ]
+      "vscjava.vscode-java-pack",
+      "ms-azuretools.vscode-docker",
+      "cweijan.vscode-database-client2",
+      "humao.rest-client"
+   ]
 }
