@@ -10,11 +10,10 @@ import org.springframework.stereotype.Repository;
 import com.algafood.algafood.domain.entities.Kitchen;
 
 @Repository
-public class KitchenDao{
+public class KitchenRepositoryImpl implements KitchenRepository {
 
     @PersistenceContext
     private EntityManager persistence;
-
 
     public List<Kitchen> list() {
         return persistence.createQuery("from Kitchen", Kitchen.class).getResultList();
