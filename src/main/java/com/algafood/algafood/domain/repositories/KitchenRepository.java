@@ -9,4 +9,8 @@ public interface KitchenRepository {
     public List<Kitchen> list();
 
     public Kitchen findById(String id);
+
+    public Kitchen saveOrUpdate(Kitchen kitchen);
+
+    void delete(Kitchen kitchen);
 }

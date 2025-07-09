@@ -6,3 +6,14 @@ channel = "stable-24_05"
 
 [deployment]
 run = ["sh", "-c", "mvn spring-boot:run"]
+
+[workflows]
+
+[[workflows.workflow]]
+name = "Build"
+mode = "sequential"
+author = 39278203
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "mvn compile"

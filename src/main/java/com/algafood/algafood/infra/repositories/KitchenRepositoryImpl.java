@@ -23,4 +23,14 @@ public class KitchenRepositoryImpl implements KitchenRepository {
     public Kitchen findById(String id) {
         return persistence.find(Kitchen.class, Long.valueOf(id));
     }
+
+    @Override
+    public Kitchen saveOrUpdate(Kitchen kitchen) {
+        return persistence.merge(kitchen);
+    }
+
+    @Override
+    public void delete(Kitchen kitchen) {
+        persistence.remove(kitchen);
+    }
 }

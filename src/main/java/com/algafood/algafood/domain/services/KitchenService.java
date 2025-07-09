@@ -21,4 +21,15 @@ public class KitchenService {
     public List<Kitchen> list() {
         return kitchenRepository.list();
     }
+
+    public Kitchen saveOrUpdate(Kitchen kitchen) {
+        return kitchenRepository.saveOrUpdate(kitchen);
+    }
+
+    public void delete(String id) {
+        final var foundKitchen = findById(id);
+        foundKitchen.ifPresent(() -> {
+            kitchenRepository.delete(foundKitchen.get());
+        }).thenThrow(new IllegalArgumentException("Kitchen nao encontrada"));
+    }
 }
