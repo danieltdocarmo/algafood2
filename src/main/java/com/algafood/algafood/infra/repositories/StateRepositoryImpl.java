@@ -1,6 +1,11 @@
+package com.algafood.algafood.infra.repositories;
+
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import com.algafood.algafood.domain.entities.State;
+import com.algafood.algafood.domain.repositories.StateRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository

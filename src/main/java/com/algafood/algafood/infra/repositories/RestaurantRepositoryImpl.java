@@ -1,6 +1,7 @@
-package com.algafood.algafood.repositories;
+package com.algafood.algafood.infra.repositories;
 
 import com.algafood.algafood.domain.entities.Restaurant;
+import com.algafood.algafood.domain.repositories.RestaurantRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -9,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public class RestaurantRepositoryImpl implements RestaurantRepository{
+public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @PersistenceContext
     private EntityManager persistence;

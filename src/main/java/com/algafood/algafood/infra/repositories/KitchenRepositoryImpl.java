@@ -1,10 +1,11 @@
-package com.algafood.algafood.repositories;
+package com.algafood.algafood.infra.repositories;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import com.algafood.algafood.domain.repositories.KitchenRepository;
 import org.springframework.stereotype.Repository;
 
 import com.algafood.algafood.domain.entities.Kitchen;

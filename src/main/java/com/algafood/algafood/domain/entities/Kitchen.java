@@ -18,7 +18,6 @@ public class Kitchen {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-
     @Column(name = "name")
     private String name;
 }

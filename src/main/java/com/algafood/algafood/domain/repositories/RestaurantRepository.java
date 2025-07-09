@@ -1,4 +1,4 @@
-package com.algafood.algafood.repositories;
+package com.algafood.algafood.domain.repositories;
 
 import com.algafood.algafood.domain.entities.Restaurant;
 
