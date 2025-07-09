@@ -7,4 +7,6 @@ import java.util.List;
 public interface KitchenRepository {
 
     public List<Kitchen> list();
+
+    public Kitchen findById(String id);
 }

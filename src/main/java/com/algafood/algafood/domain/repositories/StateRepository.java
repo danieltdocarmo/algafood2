@@ -7,4 +7,6 @@ import java.util.List;
 public interface StateRepository {
 
   public List<State> findAll();
+
+  public State findById(String id);
 }

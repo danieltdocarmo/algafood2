@@ -1,12 +1,12 @@
 package com.algafood.algafood.infra.repositories;
 
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import com.algafood.algafood.domain.entities.State;
 import com.algafood.algafood.domain.repositories.StateRepository;
 import org.springframework.stereotype.Repository;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Repository
 public class StateRepositoryImpl implements StateRepository {
@@ -16,5 +16,9 @@ public class StateRepositoryImpl implements StateRepository {
   
   public List<State> findAll() {
     return manager.createQuery("from State", State.class).getResultList();  
+  }
+
+  public State findById(String id) {
+    return manager.find(State.class, Long.valueOf(id));
   }
 }

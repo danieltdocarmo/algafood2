@@ -4,22 +4,27 @@ import java.util.List;
 
 import com.algafood.algafood.domain.entities.State;
 import com.algafood.algafood.domain.repositories.StateRepository;
+import com.algafood.algafood.domain.services.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/states")
+@RequestMapping("/state")
 public class StateController{
 
    @Autowired
-   private StateRepository stateRepository;
+   private StateService stateService;
 
    @GetMapping
-   @ResponseBody
-   public List<State> list() {
-     return stateRepository.findAll();
+   public List<State> getAllStates() {
+     return stateService.getAllStates();
+   }
+
+   @GetMapping("/{id}")
+   public ResponseEntity<State> getStatesById(@PathVariable String id) {
+      final var state = stateService.findById(id);
+
+      return state.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
    }
 }

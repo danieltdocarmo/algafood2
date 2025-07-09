@@ -1,3 +1,14 @@
 GET http://localhost:8080/kitchen
 
 ###
+
+GET http://localhost:8080/kitchen/1
+
+###
+
+GET http://localhost:8080/state
+
+###
+
+GET http://localhost:8080/state/1
+
