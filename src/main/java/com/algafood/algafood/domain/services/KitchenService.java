@@ -4,7 +4,9 @@ import com.algafood.algafood.domain.entities.Kitchen;
 import com.algafood.algafood.domain.repositories.KitchenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import com.algafood.algafood.domain.exceptions.EntityInUseException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -31,8 +33,13 @@ public class KitchenService {
 
     @Transactional
     public void delete(String id) {
-        final var foundKitchen = findById(id);
-        foundKitchen.orElseThrow(() -> new DataIntegrityViolationException("Cozinha não encontrada!"));
-        kitchenRepository.delete(foundKitchen.get());
+        try {
+                final var foundKitchen = findById(id);
+                foundKitchen.orElseThrow(() -> new EmptyResultDataAccessException(1));
+                kitchenRepository.delete(foundKitchen.get());
+        } catch (DataIntegrityViolationException e) {
+            throw new EntityInUseException(String.format("Kitchen with id %s cannot be deleted because it is in use", id), e);
+        }
+        
     }
 }

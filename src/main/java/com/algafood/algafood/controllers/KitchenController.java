@@ -5,6 +5,8 @@ import com.algafood.algafood.domain.repositories.KitchenRepository;
 import com.algafood.algafood.domain.services.KitchenService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.algafood.algafood.domain.exceptions.EntityInUseException;
 
 import java.util.List;
 
@@ -64,8 +67,10 @@ public class KitchenController {
         try {
             kitchenService.delete(id);
             return ResponseEntity.noContent().build();
-        } catch (Exception e) {
+        } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
+        } catch (EntityInUseException e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 }
