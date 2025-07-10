@@ -42,7 +42,7 @@ public class KitchenController {
         return ResponseEntity.ok(kitchenService.saveOrUpdate(kitchen));
     }
 
-    @PutMapping({"/id"})
+    @PutMapping({"/{id}"})
     public ResponseEntity<Kitchen> update(@PathVariable String id, @RequestBody Kitchen kitchen) {
         final var foundKitchen = kitchenService.findById(id);
 
@@ -59,8 +59,13 @@ public class KitchenController {
         return ResponseEntity.ok(managedKitchen);
     }   
 
-    @DeleteMapping({"/id"})
+    @DeleteMapping({"/{id}"})
     public ResponseEntity<Void> delete(@PathVariable String id) {
-        
+        try {
+            kitchenService.delete(id);
+            return ResponseEntity.noContent().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

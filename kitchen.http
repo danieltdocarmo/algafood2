@@ -1,14 +1,31 @@
-GET http://localhost:8080/kitchen
+@baseUrl = http://localhost:8080
+@type = application/json
 
-###
+@kitchenEndpoint = /kitchen
+@cozinhaId = 1
 
-GET http://localhost:8080/kitchen/1
+### Criar nova Cozinha
 
-###
+POST {{baseUrl}}{{kitchenEndpoint}}
+Accept: {{type}}
+Content-Type: {{type}}
 
-GET http://localhost:8080/state
+{
+  "name": "Brasileira"
+}
 
-###
+### Atualizar cozinha
 
-GET http://localhost:8080/state/1
+PUT {{baseUrl}}{{kitchenEndpoint}}/{{cozinhaId}}
+Accept: {{type}}
+Content-Type: {{type}}
 
+{
+  "name": "Nome estranho"
+}
+
+### Deletar cozinha
+
+DELETE {{baseUrl}}{{kitchenEndpoint}}/{{cozinhaId}}
+Accept: {{type}}
+Content-Type: {{type}}
