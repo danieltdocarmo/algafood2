@@ -2,6 +2,7 @@ package com.algafood.algafood.domain.services;
 
 import com.algafood.algafood.domain.entities.Kitchen;
 import com.algafood.algafood.domain.repositories.KitchenRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,8 +28,18 @@ public class KitchenService {
     }
 
     @Transactional
-    public Kitchen saveOrUpdate(Kitchen kitchen) {
+    public Kitchen save(Kitchen kitchen) {
         return kitchenRepository.saveOrUpdate(kitchen);
+    }
+
+    @Transactional
+    public Kitchen update(Kitchen kitchen, String id) {
+        final var foundKitchen = findById(id)
+            .orElseThrow(() -> new EmptyResultDataAccessException(1));
+
+        BeanUtils.copyProperties(kitchen, foundKitchen, "id");
+        
+        return kitchenRepository.saveOrUpdate(foundKitchen);
     }
 
     @Transactional

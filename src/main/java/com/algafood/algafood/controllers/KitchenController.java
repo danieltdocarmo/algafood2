@@ -37,29 +37,23 @@ public class KitchenController {
     public ResponseEntity<Kitchen> getKitchenById(@PathVariable String id) {
         final var kitchen = kitchenService.findById(id);
 
-        return kitchen.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return kitchen.map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<Kitchen> save(@RequestBody Kitchen kitchen) {
-        return ResponseEntity.ok(kitchenService.saveOrUpdate(kitchen));
+        return ResponseEntity.ok(kitchenService.save(kitchen));
     }
 
     @PutMapping({"/{id}"})
     public ResponseEntity<Kitchen> update(@PathVariable String id, @RequestBody Kitchen kitchen) {
-        final var foundKitchen = kitchenService.findById(id);
-
-        if(foundKitchen.isEmpty()) {
+        try {
+        final var updatedKitchen = kitchenService.update(kitchen, id);
+            return ResponseEntity.ok(updatedKitchen);
+        } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.notFound().build();
         }
-
-        var managedKitchen = foundKitchen.get();
-        
-        BeanUtils.copyProperties(kitchen, managedKitchen, "id");
-
-        managedKitchen = kitchenService.saveOrUpdate(managedKitchen);
-
-        return ResponseEntity.ok(managedKitchen);
     }   
 
     @DeleteMapping({"/{id}"})
