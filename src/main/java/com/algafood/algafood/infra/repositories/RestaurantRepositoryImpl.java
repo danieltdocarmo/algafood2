@@ -33,7 +33,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
         return persistence.createQuery("from Restaurant", Restaurant.class).getResultList();
     }
 
-    public Restaurant findById(String id) {
+    public Restaurant findById(long id) {
         return persistence.find(Restaurant.class, id);
     }
 }

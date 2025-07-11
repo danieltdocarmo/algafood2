@@ -1,13 +1,13 @@
 package com.algafood.algafood.domain.services;
 
 import com.algafood.algafood.domain.entities.Kitchen;
+import com.algafood.algafood.domain.exceptions.EntityInUseException;
 import com.algafood.algafood.domain.repositories.KitchenRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-import com.algafood.algafood.domain.exceptions.EntityInUseException;
 
 import javax.transaction.Transactional;
 import java.util.List;

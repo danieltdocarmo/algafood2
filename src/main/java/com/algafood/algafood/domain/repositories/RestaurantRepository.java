@@ -12,6 +12,6 @@ public interface RestaurantRepository {
 
     List<Restaurant> list();
 
-    Restaurant findById(String id);
+    Restaurant findById(long id);
     
 }

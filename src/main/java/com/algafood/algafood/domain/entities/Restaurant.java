@@ -1,16 +1,11 @@
 package com.algafood.algafood.domain.entities;
 
-import javax.persistence.JoinColumn;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.IDENTITY;
-import org.hibernate.mapping.ManyToOne;
 
 @Entity
 @Data
@@ -18,13 +13,13 @@ public class Restaurant {
     
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private String id;
+    private Long id;
 
     @Column
     private String name;
 
     @Column(name = "tax_fee")
-    private long taxFee;
+    private int taxFee;
 
     @Column(name = "is_active")
     private boolean isActive;
@@ -36,9 +31,9 @@ public class Restaurant {
     @JoinColumn(name = "kitchen_id")
     private Kitchen kitchen;
     
-    @Column()
+    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column()
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 }

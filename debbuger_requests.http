@@ -1,0 +1,71 @@
+@baseUrl = http://localhost:8080
+@type = application/json
+
+@kitchenEndpoint = /kitchen
+@restaurantEndpoint = /restaurants
+@cozinhaId = 1
+@restaurantId = 1
+
+### Cozinhas ###
+
+### Criar cozinha
+
+# @name Create Kitchen
+POST {{baseUrl}}{{kitchenEndpoint}}
+Accept: {{type}}
+Content-Type: {{type}}
+
+{
+  "name": "Brasileira"
+}
+
+### Atualizar cozinha
+
+# name Update Kitchen
+PUT {{baseUrl}}{{kitchenEndpoint}}/{{cozinhaId}}
+Accept: {{type}}
+Content-Type: {{type}}
+
+{
+  "name": "Nome estranho"
+}
+
+### Deletar cozinha
+
+# @name Delete Kitchen
+DELETE {{baseUrl}}{{kitchenEndpoint}}/{{cozinhaId}}
+Accept: {{type}}
+Content-Type: {{type}}
+
+### Restaurantes ###
+
+### Listar todos os restaurantes
+
+# @name List Restaurants
+GET {{baseUrl}}{{restaurantEndpoint}}
+Accept: {{type}}
+Content-Type: {{type}}
+
+### Buscar restaurante por id
+
+# @name Get Restaurant by Id
+GET {{baseUrl}}{{restaurantEndpoint}}/{{restaurantId}}
+Accept: {{type}}
+Content-Type: {{type}}
+
+### Criar restaurante
+
+# @name Create Restaurant
+POST {{baseUrl}}{{restaurantEndpoint}}
+Accept: {{type}}
+Content-Type: {{type}}
+
+{
+   "name" : "new_restaurant",
+   "kitchen": {
+    "id" : 1
+   },
+   "tax_fee" : 1,
+   "is_open" : true,
+   "is_active" : true
+}
