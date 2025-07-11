@@ -1,5 +1,6 @@
 package com.algafood.algafood.domain.entities;
 
+import javax.persistence.JoinColumn;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 import static javax.persistence.GenerationType.IDENTITY;
+import org.hibernate.mapping.ManyToOne;
 
 @Entity
 @Data
@@ -30,6 +32,10 @@ public class Restaurant {
     @Column(name = "is_open")
     private boolean isOpen;
 
+    @ManyToOne
+    @JoinColumn(name = "kitchen_id")
+    private Kitchen kitchen;
+    
     @Column()
     private LocalDateTime createdAt;
 

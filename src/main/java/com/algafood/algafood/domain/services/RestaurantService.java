@@ -1,4 +1,5 @@
 import com.algafood.algafood.domain.repositories.RestaurantRepository;
+import com.algafood.algafood.domain.services.KitchenService;
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
@@ -14,6 +15,10 @@ public class RestaurantService {
   @Autowired
   private RestaurantRepository restaurantRepository;
 
+  @Autowired
+  private KitchenService kitchenService;
+
+  
   public List<Restaurant> findAll() {
     return restaurantRepository.list();
   }
@@ -23,7 +28,13 @@ public class RestaurantService {
   }
   
   @Transactional
-  public Restaurant saveOrUpdate(Restaurant restaurant) {
+  public Restaurant save(Restaurant restaurant) {
+    final var kitchenFound = kitchenService.findById(restaurant.getKitchen().getId());
+
+    if(kitchenFound.isEmpty()) {
+      throw new EmptyResultDataAccessException(1);
+    }
+    
     return restaurantRepository.saveOrUpdate(restaurant);
   }
 

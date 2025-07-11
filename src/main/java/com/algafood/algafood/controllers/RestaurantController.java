@@ -30,6 +30,6 @@ public class RestaurantController {
 
   @PostMapping
   public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant) {
-    return ResponseEntity.ok(restaurantService.saveOrUpdate(restaurant));
+    return ResponseEntity.ok(restaurantService.save(restaurant));
   }
 }
