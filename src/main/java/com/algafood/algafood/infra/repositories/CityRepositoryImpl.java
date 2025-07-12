@@ -10,6 +10,7 @@ import com.algafood.algafood.domain.repositories.CityRepository;
 import org.springframework.stereotype.Repository;
 
 import com.algafood.algafood.domain.entities.City;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 @Repository
@@ -26,12 +27,14 @@ public class CityRepositoryImpl implements CityRepository {
     public City findById(Long id) {
         return manager.find(City.class, id);
     }
-
+    
     @Override
+    @Transactional
     public City saveOrUpdate(City city) {
     return manager.merge(city);}
 
     @Override
+    @Transactional
     public void delete(Long id) {
         final var city = findById(id);
 
