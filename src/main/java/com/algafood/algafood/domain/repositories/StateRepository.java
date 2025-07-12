@@ -6,7 +6,11 @@ import java.util.List;
 
 public interface StateRepository {
 
-  public List<State> findAll();
+  public List<State> list();
 
-  public State findById(String id);
+  public State findById(Long id);
+
+  public State saveOrUpdate(State city);
+
+  public void delete(Long id);
 }

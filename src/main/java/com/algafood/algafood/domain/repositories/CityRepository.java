@@ -7,4 +7,10 @@ import java.util.List;
 public interface CityRepository {
 
     public List<City> list();
+
+    public City findById(Long id);
+
+    public City saveOrUpdate(City city);
+
+    public void delete(Long id);
 }
