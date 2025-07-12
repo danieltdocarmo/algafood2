@@ -3,14 +3,15 @@ package com.algafood.algafood.domain.repositories;
 import com.algafood.algafood.domain.entities.State;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StateRepository {
 
-  public List<State> list();
+   List<State> list();
 
-  public State findById(Long id);
+   State findById(Long id);
 
-  public State saveOrUpdate(State city);
+   State saveOrUpdate(State city);
 
-  public void delete(Long id);
+   void delete(Long id);
 }

@@ -3,6 +3,9 @@
 
 @kitchenEndpoint = /kitchen
 @restaurantEndpoint = /restaurants
+@stateEndpoint = /state
+
+@stateId = 1
 @cozinhaId = 1
 @restaurantId = 1
 
@@ -69,3 +72,10 @@ Content-Type: {{type}}
    "is_open" : true,
    "is_active" : true
 }
+
+### Deletar estado
+
+# @name Delete State
+DELETE {{baseUrl}}{{stateEndpoint}}/{{stateId}}
+Accept: {{type}}
+Content-Type: {{type}}

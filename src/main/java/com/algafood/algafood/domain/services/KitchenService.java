@@ -42,7 +42,6 @@ public class KitchenService {
         return kitchenRepository.saveOrUpdate(foundKitchen);
     }
 
-    @Transactional
     public void delete(String id) {
         try {
                 final var foundKitchen = findById(id);

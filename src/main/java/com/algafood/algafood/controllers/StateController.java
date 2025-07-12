@@ -1,21 +1,14 @@
 package com.algafood.algafood.controllers;
 
 import com.algafood.algafood.domain.entities.State;
+import com.algafood.algafood.domain.exceptions.EntityInUseException;
 import com.algafood.algafood.domain.services.StateService;
-import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @RestController
@@ -41,12 +34,12 @@ public class StateController{
        return ResponseEntity.ok(stateService.create(state));
    }
 
-   @DeleteMapping
+   @DeleteMapping("/{id}")
    public ResponseEntity delete(@PathVariable Long id) {
       try {
          stateService.delete(id);
          return ResponseEntity.noContent().build();
-      } catch ( e) {
+      } catch (EntityInUseException e) {
           return ResponseEntity.status(HttpStatus.CONFLICT).build();
       } catch (EntityNotFoundException e) {
           return ResponseEntity.notFound().build();
@@ -56,7 +49,8 @@ public class StateController{
    @PutMapping
    public ResponseEntity<State> update(@PathVariable Long id, @RequestBody State state) {
       try {
-          return ResponseEntity.ok(stateService.update(id, state));
+         final var updatedState = stateService.update(id, state);
+          return ResponseEntity.ok(updatedState);
       } catch (EntityNotFoundException e) {
           return ResponseEntity.notFound().build();
       }

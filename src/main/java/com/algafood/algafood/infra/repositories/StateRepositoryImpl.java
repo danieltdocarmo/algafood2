@@ -2,12 +2,15 @@ package com.algafood.algafood.infra.repositories;
 
 import com.algafood.algafood.domain.entities.State;
 import com.algafood.algafood.domain.repositories.StateRepository;
-import javax.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 @Repository
 public class StateRepositoryImpl implements StateRepository {
@@ -20,19 +23,21 @@ public class StateRepositoryImpl implements StateRepository {
   }
 
   public State findById(Long id) {
-    return manager.find(State.class, Long.valueOf(id));
+        return manager.find(State.class, id);
   }
 
+    @Transactional
     @Override
     public State saveOrUpdate(State state) {
        return manager.merge(state);
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
        final var state = findById(id);
       
-       if(state == null){
+       if(isNull(state)){
          throw new EntityNotFoundException("State not found");
        }
       
