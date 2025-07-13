@@ -2,14 +2,18 @@ package com.algafood.algafood.domain.services;
 
 import com.algafood.algafood.domain.entities.Restaurant;
 import com.algafood.algafood.domain.repositories.RestaurantRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RestaurantService {
@@ -47,14 +51,35 @@ public class RestaurantService {
     restaurantRepository.remove(restaurantToRemove);
   }
 
-  @Transactional
   public Restaurant update(long id, Restaurant newRestaurant) {
       final var foundRestaurant = findById(id);
 
+      final var foundKitchen = kitchenService.findById(newRestaurant.getKitchen().getId().toString());
+    
+      if(foundKitchen.isEmpty()) {
+          throw new IllegalArgumentException("Kitchen not found");
+      }
+    
       return foundRestaurant.map(oldRestaurant -> {
           BeanUtils.copyProperties(newRestaurant, oldRestaurant, "id");
           return save(oldRestaurant);
-      }).orElseThrow(() -> new EmptyResultDataAccessException(1));
+      }).orElseThrow(() -> new EntityNotFoundException("Restaurant not found"));
   }
+
+  public Restaurant updatePartial(long id, Map<String, Object> newFields) {
+      final var foundRestaurant = findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+      final var objectMapper = new ObjectMapper();
+      final var newRestaurant = objectMapper.convertValue(newFields, Restaurant.class); 
+    
+    newFields.forEach((key, value) -> {
+        final var field = ReflectionUtils.findField(Restaurant.class, key);
+        field.setAccessible(true);
+        final var fieldValue = ReflectionUtils.getField(field, newRestaurant);
+        ReflectionUtils.setField(field, foundRestaurant, fieldValue);
+      }); 
+
+     return save(foundRestaurant);
+  }
+
 
 }
