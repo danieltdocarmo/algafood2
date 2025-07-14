@@ -2,12 +2,13 @@ package com.algafood.algafood.controllers;
 
 import com.algafood.algafood.domain.entities.Restaurant;
 import com.algafood.algafood.domain.services.RestaurantService;
-import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/restaurants")
@@ -25,8 +26,7 @@ public class RestaurantController {
   public ResponseEntity<Restaurant> getRestaurantById(@PathVariable long id) {
       final var restaurantFound = restaurantService.findById(id);
 
-    return restaurantFound.map(restaurant ->
-            ResponseEntity.ok(restaurant))
+    return restaurantFound.map(ResponseEntity::ok)
             .orElseGet(() ->
                     ResponseEntity.notFound().build());
   }
@@ -48,8 +48,8 @@ public class RestaurantController {
       }
       }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     public ResponseEntity<Restaurant> updatePartial(@PathVariable Long id, @RequestBody Map<String, Object> restaurant) {
-        
+        return ResponseEntity.ok(restaurantService.updatePartial(id, restaurant));
     }
 }

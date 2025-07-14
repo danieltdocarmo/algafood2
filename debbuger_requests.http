@@ -73,6 +73,17 @@ Content-Type: {{type}}
    "is_active" : true
 }
 
+### Atualizar restaurante parcialmente
+
+# @name Partial restaurant update
+PATCH {{baseUrl}}{{restaurantEndpoint}}/{{restaurantId}}
+Accept: {{type}}
+Content-Type: {{type}}
+
+{
+   "name" : "new_name"
+}
+
 ### Deletar estado
 
 # @name Delete State
